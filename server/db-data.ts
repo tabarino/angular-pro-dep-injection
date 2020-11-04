@@ -1,0 +1,21 @@
+export const FOOD: any = [
+    {
+        pizzas: [
+            { name: 'Pepperoni', price: 10 },
+            { name: 'Chicken', price: 12 },
+            { name: 'Hawaiian', price: 12 }
+        ],
+        sides: [
+            { name: 'Chicken Strips', price: 4 },
+            { name: 'Fries', price: 5 },
+            { name: 'Garlic Bread', price: 6 }
+        ],
+        drinks: [
+            { name: 'Cola', price: 3 },
+            { name: 'Lemonade', price: 2 },
+            { name: 'Dr Salt', price: 3 }
+        ]
+    }
+];
+
+
