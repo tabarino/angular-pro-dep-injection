@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Drink } from '../../models/drink.model';
 import { FoodService } from '../../services/food.service';
 
-export function DrinkFactory(http) {
-    return new FoodService(http, '/api/drinks');
+export abstract class DrinkService {
+    getDrinks: () => Observable<Drink[]>;
 }
 
 @Component({
@@ -13,21 +12,16 @@ export function DrinkFactory(http) {
     templateUrl: './drink-viewer.component.html',
     styleUrls: ['./drink-viewer.component.scss'],
     providers: [
-        {
-            provide: FoodService,
-            useFactory: DrinkFactory,
-            deps: [
-                HttpClient
-            ]
-        }
+        FoodService,
+        { provide: DrinkService, useExisting: FoodService }
     ]
 })
 export class DrinkViewerComponent implements OnInit {
     items$: Observable<Drink[]>;
 
-    constructor(private foodService: FoodService) { }
+    constructor(private foodService: DrinkService) { }
 
     ngOnInit(): void {
-        this.items$ = this.foodService.getFood();
+        this.items$ = this.foodService.getDrinks();
     }
 }

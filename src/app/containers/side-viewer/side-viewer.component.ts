@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Side } from 'src/app/models/side.model';
 import { FoodService } from '../../services/food.service';
 
-export function SideFactory(http) {
-    return new FoodService(http, '/api/sides');
+export abstract class SideService {
+    getSides: () => Observable<Side[]>;
 }
 
 @Component({
@@ -13,21 +12,16 @@ export function SideFactory(http) {
     templateUrl: './side-viewer.component.html',
     styleUrls: ['./side-viewer.component.scss'],
     providers: [
-        {
-            provide: FoodService,
-            useFactory: SideFactory,
-            deps: [
-                HttpClient
-            ]
-        }
+        FoodService,
+        { provide: SideService, useExisting: FoodService }
     ]
 })
 export class SideViewerComponent implements OnInit {
     items$: Observable<Side[]>;
 
-    constructor(private foodService: FoodService) { }
+    constructor(private foodService: SideService) { }
 
     ngOnInit(): void {
-        this.items$ = this.foodService.getFood();
+        this.items$ = this.foodService.getSides();
     }
 }

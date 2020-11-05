@@ -7,12 +7,25 @@ import { convertSnaps } from './db-utils';
 @Injectable()
 export class FoodService {
     constructor(
-        private http: HttpClient,
-        private api: string
+        private http: HttpClient
     ) { }
 
-    getFood(): Observable<any[]> {
-        return this.http.get<any[]>(this.api).pipe(
+    getDrinks(): Observable<any[]> {
+        return this.http.get<any[]>('/api/drinks').pipe(
+            map(snaps => convertSnaps<any>(snaps)),
+            catchError(error => throwError(error))
+        );
+    }
+
+    getPizzas(): Observable<any[]> {
+        return this.http.get<any[]>('/api/pizzas').pipe(
+            map(snaps => convertSnaps<any>(snaps)),
+            catchError(error => throwError(error))
+        );
+    }
+
+    getSides(): Observable<any[]> {
+        return this.http.get<any[]>('/api/sides').pipe(
             map(snaps => convertSnaps<any>(snaps)),
             catchError(error => throwError(error))
         );
