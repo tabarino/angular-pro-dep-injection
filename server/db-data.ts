@@ -18,4 +18,10 @@ export const FOOD: any = [
     }
 ];
 
-
+export const STORE: any = [
+    {
+        id: 10292,
+        name: 'London, UK',
+        token: 'eca938c99a0e9ff91029dc'
+    }
+];
