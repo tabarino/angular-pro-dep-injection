@@ -8,8 +8,9 @@ import { map } from 'rxjs/operators';
     selector: 'drink-viewer',
     templateUrl: './drink-viewer.component.html',
     styleUrls: ['./drink-viewer.component.scss'],
+    // This is the same as last commit
     providers: [
-        FoodService
+        { provide: FoodService, useClass: FoodService }
     ]
 })
 export class DrinkViewerComponent implements OnInit {
