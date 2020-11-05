@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { DrinkViewerComponent } from './containers/drink-viewer/drink-viewer.component';
 import { PizzaViewerComponent } from './containers/pizza-viewer/pizza-viewer.component';
 import { SideViewerComponent } from './containers/side-viewer/side-viewer.component';
+import { API_TOKEN } from './token';
 
 @NgModule({
     declarations: [
@@ -18,7 +19,7 @@ import { SideViewerComponent } from './containers/side-viewer/side-viewer.compon
         HttpClientModule
     ],
     providers: [
-        { provide: 'api', useValue: '/api/pizzas' }
+        { provide: API_TOKEN, useValue: '/api/pizzas' }
     ],
     bootstrap: [
         AppComponent

@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { convertSnaps } from './db-utils';
+import { API_TOKEN } from '../token';
 
 @Injectable()
 export class FoodService {
     constructor(
         private http: HttpClient,
-        @Inject('api') private api: string
+        @Inject(API_TOKEN) private api: string
     ) { }
 
     getFood(): Observable<any[]> {
