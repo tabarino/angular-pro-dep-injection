@@ -1,15 +1,25 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Pizza } from 'src/app/models/pizza.model';
 import { FoodService } from '../../services/food.service';
-import { map } from 'rxjs/operators';
+
+export function PizzaFactory(http) {
+    return new FoodService(http, '/api/pizzas');
+}
 
 @Component({
     selector: 'pizza-viewer',
     templateUrl: './pizza-viewer.component.html',
     styleUrls: ['./pizza-viewer.component.scss'],
     providers: [
-        FoodService
+        {
+            provide: FoodService,
+            useFactory: PizzaFactory,
+            deps: [
+                HttpClient
+            ]
+        }
     ]
 })
 export class PizzaViewerComponent implements OnInit {
@@ -18,8 +28,6 @@ export class PizzaViewerComponent implements OnInit {
     constructor(private foodService: FoodService) { }
 
     ngOnInit(): void {
-        this.items$ = this.foodService.getFood().pipe(
-            map((food) => food[0].pizzas)
-        );
+        this.items$ = this.foodService.getFood();
     }
 }

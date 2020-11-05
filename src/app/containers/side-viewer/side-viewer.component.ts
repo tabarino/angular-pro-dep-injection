@@ -1,15 +1,25 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Side } from 'src/app/models/side.model';
 import { FoodService } from '../../services/food.service';
-import { map, pluck } from 'rxjs/operators';
+
+export function SideFactory(http) {
+    return new FoodService(http, '/api/sides');
+}
 
 @Component({
     selector: 'side-viewer',
     templateUrl: './side-viewer.component.html',
     styleUrls: ['./side-viewer.component.scss'],
     providers: [
-        FoodService
+        {
+            provide: FoodService,
+            useFactory: SideFactory,
+            deps: [
+                HttpClient
+            ]
+        }
     ]
 })
 export class SideViewerComponent implements OnInit {
@@ -18,8 +28,6 @@ export class SideViewerComponent implements OnInit {
     constructor(private foodService: FoodService) { }
 
     ngOnInit(): void {
-        this.items$ = this.foodService.getFood().pipe(
-            map((food) => food[0].sides)
-        );
+        this.items$ = this.foodService.getFood();
     }
 }

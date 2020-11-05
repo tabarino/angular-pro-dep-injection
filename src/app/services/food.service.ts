@@ -1,15 +1,14 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { convertSnaps } from './db-utils';
-import { API_TOKEN } from '../token';
 
 @Injectable()
 export class FoodService {
     constructor(
         private http: HttpClient,
-        @Inject(API_TOKEN) private api: string
+        private api: string
     ) { }
 
     getFood(): Observable<any[]> {
